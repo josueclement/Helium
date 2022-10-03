@@ -1,18 +1,36 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <Color x:Key="Helium.Dark.Colors.Background1">#1e1e1e</Color>
-    <Color x:Key="Helium.Dark.Colors.Background2">#1f1f1f</Color>
-    <Color x:Key="Helium.Dark.Colors.Background3">#3d3d3d</Color>
-    <Color x:Key="Helium.Dark.Colors.Selection">#3399ff</Color>
-    <Color x:Key="Helium.Dark.Colors.Foreground">#dcdcdc</Color>
-    <Color x:Key="Helium.Dark.Colors.Error">#8c2f2f</Color>
-    <Color x:Key="Helium.Dark.Colors.Warning">#ffdba3</Color>
-    <Color x:Key="Helium.Dark.Colors.Success">#57a64a</Color>
+    <system:Double x:Key="Helium.Dark.Controls.Button.BorderThicknessValue">1.0</system:Double>
+    <Thickness x:Key="Helium.Dark.Controls.Button.BorderThickness"
+               Left="{StaticResource Helium.Dark.Controls.Button.BorderThicknessValue}"
+               Top="{StaticResource Helium.Dark.Controls.Button.BorderThicknessValue}"
+               Right="{StaticResource Helium.Dark.Controls.Button.BorderThicknessValue}"
+               Bottom="{StaticResource Helium.Dark.Controls.Button.BorderThicknessValue}" />
 
-    <SolidColorBrush x:Key="Helium.Dark.Brushes.Background1" Color="{StaticResource Helium.Dark.Colors.Background1}" />
+    <Color x:Key="Helium.Dark.Colors.Background1">#1E1E1E</Color>
+    <Color x:Key="Helium.Dark.Colors.Background2">#1F1F1F</Color>
+    <Color x:Key="Helium.Dark.Colors.Background3">#2E2E2E</Color>
+    <Color x:Key="Helium.Dark.Colors.Background4">#3D3D3D</Color>
+    <Color x:Key="Helium.Dark.Colors.Background5">#4F4F4F</Color>
+    <Color x:Key="Helium.Dark.Colors.Selection">#3399FF</Color>
+    <Color x:Key="Helium.Dark.Colors.Foreground">#DCDCDC</Color>
+    <Color x:Key="Helium.Dark.Colors.ForegroundDisabled">#4F4F4F</Color>
+    <Color x:Key="Helium.Dark.Colors.Error">#8C2F2F</Color>
+    <Color x:Key="Helium.Dark.Colors.Warning">#FFDBA3</Color>
+    <Color x:Key="Helium.Dark.Colors.Success">#57A64A</Color>
+
+    <SolidColorBrush x:Key="Helium.Dark.Brushes.Background1" Color="{DynamicResource Helium.Dark.Colors.Background1}" />
     <SolidColorBrush x:Key="Helium.Dark.Brushes.Background2" Color="{StaticResource Helium.Dark.Colors.Background2}" />
     <SolidColorBrush x:Key="Helium.Dark.Brushes.Background3" Color="{StaticResource Helium.Dark.Colors.Background3}" />
+    <SolidColorBrush x:Key="Helium.Dark.Brushes.Background4" Color="{StaticResource Helium.Dark.Colors.Background4}" />
+    <SolidColorBrush x:Key="Helium.Dark.Brushes.Background5" Color="{StaticResource Helium.Dark.Colors.Background5}" />
     <SolidColorBrush x:Key="Helium.Dark.Brushes.Selection" Color="{StaticResource Helium.Dark.Colors.Selection}" />
+    <SolidColorBrush x:Key="Helium.Dark.Brushes.Foreground" Color="{StaticResource Helium.Dark.Colors.Foreground}" />
+    <SolidColorBrush x:Key="Helium.Dark.Brushes.ForegroundDisabled" Color="{StaticResource Helium.Dark.Colors.ForegroundDisabled}" />
+    <SolidColorBrush x:Key="Helium.Dark.Brushes.Error" Color="{StaticResource Helium.Dark.Colors.Error}" />
+    <SolidColorBrush x:Key="Helium.Dark.Brushes.Warning" Color="{StaticResource Helium.Dark.Colors.Warning}" />
+    <SolidColorBrush x:Key="Helium.Dark.Brushes.Success" Color="{StaticResource Helium.Dark.Colors.Success}" />
 
 </ResourceDictionary>

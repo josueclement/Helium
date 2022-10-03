@@ -5,7 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="/Helium.Wpf;component/Themes/Generic.xaml" />-->
+                <ResourceDictionary Source="/Helium.Wpf;component/Styles/Theme.Dark.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary> 
     </Application.Resources>

@@ -6,13 +6,15 @@
         xmlns:controls="clr-namespace:Helium.Wpf.Controls;assembly=Helium.Wpf"
         xmlns:local="clr-namespace:WpfTests"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="800"
+        Background="{DynamicResource Helium.Dark.Brushes.Background1}">
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Margin="10" Content="Test Singleton" Width="100" Command="{Binding TestSingletonCommand}" />
-            <Button Margin="10" Content="Test Scoped" Width="100" Command="{Binding TestScopedCommand}" />
-            <Button Margin="10" Content="Test Transiant" Width="100" Command="{Binding TestTransiantCommand}" />
-            <controls:RedButton Content="TEST" />
+            <Button Margin="10" Content="Test Singleton" Command="{Binding TestSingletonCommand}" />
+            <Button Margin="10" Content="Test Scoped" Command="{Binding TestScopedCommand}" />
+            <Button Margin="10" Content="Test Transiant blah blah blah" Command="{Binding TestTransiantCommand}" />
+            <controls:RedButton Content="TEST" Margin="10" />
+            <TextBox Margin="10" />
         </StackPanel>
     </Grid>
 </Window>
