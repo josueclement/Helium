@@ -11,8 +11,16 @@ namespace WpfTests
     {
         public AppBootstrapper()
         {
-            IsSplashScreenEnabled = true;
+            UnhandledException += AppBootstrapper_UnhandledException;
         }
+
+        private void AppBootstrapper_UnhandledException(object sender, Exception e)
+        {
+            MessageBox.Show(e.ToString(), "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        public override bool IsSplashScreenEnabled => true;
+        public override TimeSpan SplashScreenDuration => TimeSpan.FromSeconds(4);
 
         protected override Window CreateMainWindow()
         {
@@ -33,18 +41,8 @@ namespace WpfTests
             services.AddTransient<IDateTimeService, DateTimeService>();
             services.AddTransient<IHelloService, HelloService>();
 
+            // Must be called after adding services
             base.ConfigureServices(services);
-        }
-
-        protected override void OnUnhandledException(Exception ex)
-        {
-            base.OnUnhandledException(ex);
-        }
-
-        protected override void OnStarted()
-        {
-            //ServiceProvider.GetService<ISettingsService>().ReadSettings(@"C:\Temp\settings.txt");
-
         }
     }
 }

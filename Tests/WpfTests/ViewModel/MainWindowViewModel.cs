@@ -63,7 +63,7 @@ namespace WpfTests.ViewModel
 
         private void TestTransiant(object param)
         {
-
+            throw new Exception("Test exception");
         }
 
         #endregion

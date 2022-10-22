@@ -7,7 +7,7 @@ namespace Helium.Core.Bootstrapper
     /// <summary>
     /// Bootstrapper for .NET applications
     /// </summary>
-    public class Bootstrapper
+    public abstract class Bootstrapper
     {
         #region Constructors
 
@@ -40,26 +40,26 @@ namespace Helium.Core.Bootstrapper
         public event EventHandler<Exception>? UnhandledException;
 
         /// <summary>
-        /// Method called when the bootstrapper is starting
+        /// Raises <see cref="Starting"/> event
         /// </summary>
-        protected virtual void OnStarting()
+        protected void RaiseStartingEvent()
         {
             Starting?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
-        /// Method called when the bootstrapper started everything
+        /// Raises <see cref="Started"/> event
         /// </summary>
-        protected virtual void OnStarted()
+        protected void RaiseStartedEvent()
         {
             Started?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
-        /// Method called when an unhandled exception occurs
+        /// Raises <see cref="UnhandledException"/> event
         /// </summary>
-        /// <param name="ex"></param>
-        protected virtual void OnUnhandledException(Exception ex)
+        /// <param name="ex">Unhandled exception</param>
+        protected void RaiseUnhandledExceptionEvent(Exception ex)
         {
             UnhandledException?.Invoke(this, ex);
         }
@@ -92,10 +92,10 @@ namespace Helium.Core.Bootstrapper
         /// </summary>
         public virtual void Run()
         {
-            OnStarting();
+            RaiseStartingEvent();
             ConfigureServices();
             RegisterUnhandledExceptions();
-            OnStarted();
+            RaiseStartedEvent();
         }
 
         /// <summary>
@@ -121,6 +121,9 @@ namespace Helium.Core.Bootstrapper
         protected virtual void ConfigureServices(IServiceCollection services)
         { }
 
+        /// <summary>
+        /// Configures services and build service provider
+        /// </summary>
         protected void ConfigureServices()
         {
             ConfigureServices(ServiceCollection);
@@ -151,16 +154,26 @@ namespace Helium.Core.Bootstrapper
             TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
         }
 
+        /// <summary>
+        /// Method called when <see cref="AppDomain.UnhandledException"/> is raised
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Unhandled exception args</param>
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             if (e.ExceptionObject is Exception ex)
-                OnUnhandledException(ex);
+                RaiseUnhandledExceptionEvent(ex);
         }
 
+        /// <summary>
+        /// Method called when <see cref="TaskScheduler.UnobservedTaskException"/> is raised
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Unobserved task exception args</param>
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             e.SetObserved();
-            OnUnhandledException(e.Exception);
+            RaiseUnhandledExceptionEvent(e.Exception);
         }
 
         #endregion

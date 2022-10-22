@@ -8,19 +8,19 @@ namespace Helium.Wpf.Bootstrapper
     /// <summary>
     /// Bootstrapper for Wpf applications
     /// </summary>
-    public class WpfBootstrapper : Core.Bootstrapper.Bootstrapper
+    public abstract class WpfBootstrapper : Core.Bootstrapper.Bootstrapper
     {
         #region Properties
 
         /// <summary>
         /// Gets or sets wether the splash screen is enabled
         /// </summary>
-        public bool IsSplashScreenEnabled { get; set; }
+        public virtual bool IsSplashScreenEnabled { get; set; }
 
         /// <summary>
         /// Gets or sets the splash screen duration
         /// </summary>
-        public TimeSpan SplashScreenDuration { get; set; } = TimeSpan.FromSeconds(2);
+        public virtual TimeSpan SplashScreenDuration { get; set; } = TimeSpan.FromSeconds(2);
 
         /// <summary>
         /// Splash screen window
@@ -39,11 +39,11 @@ namespace Helium.Wpf.Bootstrapper
         /// <inheritdoc/>
         public override void Run()
         {
-            OnStarting();
+            RaiseStartingEvent();
             ConfigureServices();
             RegisterUnhandledExceptions();
             ShowSplashScreenAndWindow();
-            OnStarted();
+            RaiseStartedEvent();
         }
 
         /// <inheritdoc/>
@@ -74,17 +74,15 @@ namespace Helium.Wpf.Bootstrapper
             Application.Current.DispatcherUnhandledException -= OnDispatcherUnhandledException;
         }
 
+        /// <summary>
+        /// Method called when <see cref="Application.DispatcherUnhandledException"/> is raised
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Dispatcher unhandled exception args</param>
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             e.Handled = true;
-            OnUnhandledException(e.Exception);
-        }
-
-        protected override void OnUnhandledException(Exception ex)
-        {
-            base.OnUnhandledException(ex);
-
-            MessageBox.Show(ex.ToString(), "Unhandled error", MessageBoxButton.OK, MessageBoxImage.Error);
+            RaiseUnhandledExceptionEvent(e.Exception);
         }
 
         #endregion
@@ -102,8 +100,8 @@ namespace Helium.Wpf.Bootstrapper
         /// Create a new main window<br />
         /// Override this method to create your own main window
         /// </summary>
-        /// <returns></returns>
-        protected virtual Window CreateMainWindow() => new Window();
+        /// <returns>Main window</returns>
+        protected abstract Window CreateMainWindow();
 
         /// <summary>
         /// Show splash screen and main window
@@ -134,8 +132,8 @@ namespace Helium.Wpf.Bootstrapper
         /// <summary>
         /// Occurs when the main window is closing
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Cancel event args</param>
         protected virtual void OnMainWindowClosing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
             if (MainWindow != null)
